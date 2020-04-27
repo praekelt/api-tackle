@@ -35,7 +35,7 @@ check:
 	@echo [mypy]:
 	@mypy $(mypy_flags) --incremental $(_checkfiles)
 	@echo [pylint]:
-	@pylint -E $(pylint_flags) $(checkfiles)
+	@pylint -E $(pylint_flags) $(_checkfiles)
 	@echo [flake8]:
 	@flake8 $(flake8_flags) $(checkfiles)
 

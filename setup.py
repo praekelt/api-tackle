@@ -45,7 +45,7 @@ setuptools.setup(
     name='api_tackle',
 
     version=get_version('tackle/__init__.py'),
-    description='API Tackle - ...',
+    description='API Tackle - Simple Python REST API Framework',
 
     long_description=long_description,
 
@@ -70,8 +70,8 @@ setuptools.setup(
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
-        'Topic :: Scientific/Engineering :: Machine Learning',
-        'License :: BSD 3-Clause License',
-        "Programming Language :: Python :: 3",
+        'Topic :: Scientific/Engineering :: Artificial Intelligence',
+        'License :: OSI Approved :: BSD License',
+        'Programming Language :: Python :: 3',
     ],
 )
