@@ -1,0 +1,14 @@
+-r requirements.in
+mypy
+pylint
+flake8
+coverage
+coveralls
+docutils
+sphinx
+sphinx_rtd_theme
+cloud_sptheme
+pygments
+jupyter
+matplotlib
+responses

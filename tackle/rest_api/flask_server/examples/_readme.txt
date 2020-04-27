@@ -1,0 +1,1 @@
+These are example python, shell and other scripts that show how to use the rest interface.

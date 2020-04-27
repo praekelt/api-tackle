@@ -1,0 +1,183 @@
+swagger: "2.0"
+
+info:
+  description: This is an example swagger spec.
+  version: 0.1.dev1
+  title: Example API
+  contact:
+    name: Bernardt Duvenhage, Feersum engine
+    url: www.feersum.io
+    email: bernardt@feersum.io
+
+host: 127.0.0.1:7100
+basePath: /
+
+schemes:
+  - https
+#  - http
+
+consumes:
+- application/json
+produces:
+- application/json
+
+# Global security (applies to all operations):
+securityDefinitions:
+   APIKeyHeader_old:
+     type: apiKey
+     x-apikeyInfoFunc: tackle.rest_api.flask_server.controllers.controller_util.api_key_auth
+     in: header
+     name: AUTH_TOKEN
+   APIKeyHeader:
+     type: apiKey
+     x-apikeyInfoFunc: tackle.rest_api.flask_server.controllers.controller_util.api_key_auth
+     in: header
+     name: X-Auth-Token
+
+security:
+- APIKeyHeader_old: []
+- APIKeyHeader: []
+
+tags:
+- name: dashboard
+  description: A service endpoint to get your list of model instances. 'Try it out!' to see what models are already created for you.
+- name: health
+  description: An enpoint to check if the service is alive and well.
+
+
+paths:
+###################################
+###################################
+########
+## dashboard root
+########
+  /dashboard:
+    parameters:
+    - $ref: '#/parameters/caller'
+
+    get:
+      tags:
+      - dashboard
+      summary: Your root service dashboard. Same as POST endpoint, but doesn't allow params to be supplied to the operation.
+      x-swagger-router-controller: tackle.rest_api.flask_server.controllers
+      operationId: dashboard_controller.get_details
+      description: Get your list of model instances, the API version, etc. Same as POST endpoint, but doesn't allow params to be supplied to the operation.
+      responses:
+        200:
+          $ref: "#/responses/dashboard_detail"
+        400:
+          description: bad request
+        401:
+          $ref: "#/responses/UnauthorizedError"
+
+    post:
+      tags:
+      - dashboard
+      summary: Your root service dashboard. Same as GET endpoint, but allows params to be supplied to the operation.
+      x-swagger-router-controller: tackle.rest_api.flask_server.controllers
+      operationId: dashboard_controller.get_details_with_params
+      description: Get your list of model instances, the API version, etc. Same as GET endpoint, but allows params to be supplied to the operation.
+      parameters:
+      - in: body
+        name: params
+        description: Params like 'show_data_objects' that influence the dashboard's response.
+        required: true
+        schema:
+          $ref: "#/definitions/dashboard_params"
+      responses:
+        200:
+          $ref: "#/responses/dashboard_detail"
+        400:
+          description: bad request
+        401:
+          $ref: "#/responses/UnauthorizedError"
+
+
+###################################
+###################################
+########
+## health root
+########
+  /health:
+    parameters:
+    - $ref: '#/parameters/caller'
+
+    get:
+      tags:
+      - health
+      summary: An endpoint to check if the service is alive and well.
+      x-swagger-router-controller: tackle.rest_api.flask_server.controllers
+      operationId: health_controller.get_status
+      description: Check if the service is alive and well.
+      responses:
+        200:
+          description: service is healthy
+        400:
+          description: bad request
+        401:
+          $ref: "#/responses/UnauthorizedError"
+
+
+###################################
+# Descriptions of common parameters
+###################################
+parameters:
+  caller:
+    in: header
+    name: X-CALLER
+    type: string
+    required: false
+
+
+##################################
+# Descriptions of common responses
+##################################
+responses:
+  UnauthorizedError:
+    description: API key is missing or invalid
+    headers:
+      WWW_Authenticate:
+        type: string
+
+  dashboard_detail:
+    description: Your dashboard content.
+    schema:
+      $ref: "#/definitions/dashboard_detail"
+
+
+####################################
+# Descriptions of common definitions
+####################################
+definitions:
+
+  dashboard_detail:
+    description: Your dashboard content.
+    type: object
+    required:
+    - api_version
+    - service_name
+    properties:
+      api_version:
+        description: The version of the http api.
+        type: string
+        example: 0.1.dev1
+      service_name:
+        description: The details of this service.
+        type: string
+        example: Example API.
+      log_file:
+        type: string
+
+  dashboard_params:
+    description: The params used in generating the dashboard response.
+    type: object
+    properties:
+      show_data_objects:
+        description: Set this to True to include the data objects on the dashboard. Default is False.
+        type: boolean
+        example: False
+      history_size:
+        description: The max size of the revision history to include for a model.
+        type: integer
+        default: 10
+        example: 10

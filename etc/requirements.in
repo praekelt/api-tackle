@@ -1,0 +1,14 @@
+werkzeug
+wget
+pip-tools
+appdirs
+psycopg2
+flask
+flask_cors
+flask-migrate
+flask-script
+flask_testing
+connexion
+connexion[swagger-ui]
+gunicorn
+prometheus_client

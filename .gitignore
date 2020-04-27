@@ -1,0 +1,14 @@
+*.log
+.coverage
+.DS_Store
+*.sqlite*
+.idea/
+.ipynb_checkpoints
+.mypy_cache/
+.pyenv/
+build/
+__pycache__/
+htmlcov/
+snapshot
+ve/
+.vscode

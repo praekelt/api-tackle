@@ -1,0 +1,8 @@
+[run]
+branch = True
+cover_pylib = False
+source = tackle
+# omit =
+
+[report]
+show_missing = True
