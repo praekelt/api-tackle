@@ -23,7 +23,7 @@ idna==2.9                 # via requests
 importlib-metadata==1.6.0  # via jsonschema
 inflection==0.4.0         # via connexion
 itsdangerous==1.1.0       # via flask
-jinja2==2.11.2            # via flask, swagger-ui-bundle
+jinja2==2.11.3            # via flask, swagger-ui-bundle
 jsonschema==3.2.0         # via connexion, openapi-spec-validator
 mako==1.1.2               # via alembic
 markupsafe==1.1.1         # via jinja2, mako
